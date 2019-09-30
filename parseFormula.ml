@@ -2,9 +2,9 @@
 
 (* use *)
 
-# #require "yojson" ;;
+#require "yojson" ;;
 
-# open Yojson ;;
+#open Yojson ;;
 
 (* test *)
 test1 = let perseFormula "Z plus Z" =
