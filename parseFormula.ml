@@ -9,7 +9,9 @@
 (* test *)
 test1 = let perseFormula "Z plus Z" =
     {
-        { "operator" : "plus" }
+        "operators" : {
+            { "operator" : "plus"},
+        },
         "numbers": {
             { "number": "Z" },
             { "number": "Z" },
@@ -17,7 +19,9 @@ test1 = let perseFormula "Z plus Z" =
     }
 test2 = let perseFormula "Z plus S is S" =
     {
-        { "operator" : "plus" }
+        "operators" : {
+            { "operator" : "plus" },
+        }
         "numbers": {
             { "number": "Z" },
             { "number": "S" },
