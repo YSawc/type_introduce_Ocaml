@@ -2,4 +2,5 @@
 
 let operators = [
     "plus";
+    "times";
 ]
