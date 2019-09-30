@@ -1,5 +1,5 @@
 (* type: string list *)
 
-let typeList = [
+let operators = [
     "plus";
 ]
