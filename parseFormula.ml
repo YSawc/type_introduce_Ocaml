@@ -3,10 +3,10 @@
 (* use *)
 
 #require "yojson" ;;
-
 #open Yojson ;;
 
 (* test *)
+
 test1 = let perseFormula "Z plus Z" =
     {
         "operators" : {
