@@ -26,17 +26,4 @@ let rec parseOperator str operators = match operators with
 (* test *)
 
 let test1 = parseOperator "Z plus P" operatorsList = "plus"
-
-(* test1 = parseOperator "Z plus Z" = *)
-(*     { *)
-(*         "operators" : { *)
-(*             { "operator" : "plus" }, *)
-(*         }, *)
-(*     }, *)
-
-(* test2 = parseOperator "Z times S" = *)
-(*     { *)
-(*         "operators" : { *)
-(*             { "operator" : "times" }, *)
-(*         }, *)
-(*     }, *)
+let test1 = parseOperator "Z times P" operatorsList = "times"
