@@ -3,27 +3,40 @@
 (* use *)
 
 (* TODO: deal with absolutely path *)
-#use "../../../assets/operators.ml"
+#use "../../../assets/operators/operators.ml"
+#use "../contains/contains.ml"
+
+(* data__operators *)
+
+let plus = { operator = "plus" }
+let times = { operator = "times" }
+
+(* data__operators_list *)
+let operatorsList = [plus; times]
 
 (* func *)
 
-let rec parseOperator str = match str with
-    "" -> ""
-    str
+let rec parseOperator str operators = match operators with
+    [] -> ""
+    | { operator = ope } :: rest ->
+        if contains str ope
+        then ope
+        else parseOperator str rest
 
 (* test *)
 
-test1 = parseOperator "Z plus Z" =
-    {
-        "operators" : {
-            { "operator" : "plus" },
-        },
-    },
+let test1 = parseOperator "Z plus P" operatorsList = "plus"
 
-test2 = parseOperator "Z times S" =
-    {
-        "operators" : {
-            { "operator" : "times" },
-        },
-    },
+(* test1 = parseOperator "Z plus Z" = *)
+(*     { *)
+(*         "operators" : { *)
+(*             { "operator" : "plus" }, *)
+(*         }, *)
+(*     }, *)
 
+(* test2 = parseOperator "Z times S" = *)
+(*     { *)
+(*         "operators" : { *)
+(*             { "operator" : "times" }, *)
+(*         }, *)
+(*     }, *)
