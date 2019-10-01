@@ -1,5 +1,7 @@
 (* ref: https://stackoverflow.com/questions/8373460/substring-check-in-ocaml *)
 
+(* per: string -> string -> bool *)
+
 (* load *)
 
 #load "str.cma"
