@@ -4,7 +4,7 @@
 
 (* test *)
 
-let test1 = parseParenMatch "S" = true
+let test1 = parseParenMatch "S" = false
 let test2 = parseParenMatch "S(S(S(Z)))" = true
 let test3 = parseParenMatch "S(S(Z)" = false
 let test4 = parseParenMatch "S(SZ)" = false
