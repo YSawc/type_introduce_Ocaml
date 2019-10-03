@@ -5,7 +5,10 @@
 (* func *)
 
 let parseZ (z:char) : bool =
-    true
+    if z = 'Z'
+    then true
+    else false
 
 (* test *)
 let test1 = parseZ 'Z' = true
+let test2 = parseZ '_' = false
