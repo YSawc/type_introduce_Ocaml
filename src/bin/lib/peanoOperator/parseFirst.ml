@@ -1,4 +1,4 @@
-(* func *)
+(* per: parse first char of natural number *)
 
 (* data__peano *)
 
@@ -6,6 +6,8 @@ let peanosData = [
     'Z';
     'S';
 ]
+
+(* func *)
 
 let rec parseFirst str peanosData = match peanosData with
     [] -> false
