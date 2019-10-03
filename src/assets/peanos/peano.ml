@@ -1,6 +1,8 @@
 (* type *)
 
-type peano_t = {
+(* TODO: reconstruct this *)
+
+type peano_t = [
     name : string;
     symbol : string;
-}
+]
