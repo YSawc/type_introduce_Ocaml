@@ -1,11 +1,11 @@
-(* per: read word of Z *)
+(* per: read Z *)
 (* premise: read first word is Z *)
 (* TIP: if read string, return typeError *)
 
 (* func *)
 
-let parseZ (z:char) : bool =
-    if z = 'Z'
+let parseZ (c:char) : bool =
+    if c = 'Z'
     then true
     else false
 
