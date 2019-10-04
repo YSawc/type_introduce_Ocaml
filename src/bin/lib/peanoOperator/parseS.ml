@@ -10,7 +10,7 @@ let parenBuf = Buffer.create 128
 
 (* func *)
 
-let parseS (str:string) =
+let parseS (str:string) () =
     for i = 0 to String.length str do
             let (ittr:char) = str . [i] in
             if ittr = 'S'
@@ -27,12 +27,12 @@ let parseS (str:string) =
                 Buffer.add_char closeParenBuf ')'  (* append charPop *)
                 (* readChar idx-1 *)
           done
-let charBufCompOpenBuf chrBuf opnBuf :bool =
+let charBufCompOpenBuf (chrBuf:Buffer.t) (opnBuf:Buffer.t) :bool =
     if Buffer.length chrBuf =Buffer.length opnBuf - 1
     then true
     else false
 
-let charBufCompCloseBuf chrBuf clsBuf :bool =
+let charBufCompCloseBuf (chrBuf:Buffer.t) (clsBuf:Buffer.t) :bool =
     if Buffer.length chrBuf =Buffer.length clsBuf - 1
     then true
     else false
