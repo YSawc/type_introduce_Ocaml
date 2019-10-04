@@ -27,6 +27,21 @@ let parseS (str:string) =
                 Buffer.add_char closeParenBuf ')'  (* append charPop *)
                 (* readChar idx-1 *)
           done
+let charBufCompOpenBuf chrBuf opnBuf :bool =
+    if Buffer.length chrBuf =Buffer.length opnBuf - 1
+    then true
+    else false
+
+let charBufCompCloseBuf chrBuf clsBuf :bool =
+    if Buffer.length chrBuf =Buffer.length clsBuf - 1
+    then true
+    else false
+
+let lengthCompRes (openComp:bool) (closeComp:bool) :bool =
+  if openComp == closeComp
+  then true
+  else false
+
 (* test *)
 let test1 = parseS "S(S(Z))" = true
 let test2 = parseS "S(S(Z)" = false
