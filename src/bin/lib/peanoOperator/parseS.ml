@@ -10,34 +10,33 @@ let parenBuf = Buffer.create 128
 
 (* func *)
 
-let parseS (str:string) () =
+let parseS (str :string) () =
     for i = 0 to String.length str do
-            let (ittr:char) = str . [i] in
-            if ittr = 'S'
-            then
-                Buffer.add_char charBuf 'S'  (* append charPop *)
-            else if ittr = 'Z'
-            then
-                Buffer.add_char charBuf 'Z'  (* append charPop *)
-            else if ittr = '('
-            then
-                Buffer.add_char openParenBuf '('  (* append charPop *)
-            else if ittr = ')'
-            then
-                Buffer.add_char closeParenBuf ')'  (* append charPop *)
-                (* readChar idx-1 *)
-          done
-let charBufCompOpenBuf (chrBuf:Buffer.t) (opnBuf:Buffer.t) :bool =
+        let (ittr :char) = str . [i] in
+        if ittr = 'S'
+        then Buffer.add_char charBuf 'S'  (* append charPop *)
+        else
+        if ittr = 'Z'
+        then Buffer.add_char charBuf 'Z'  (* append charPop *)
+        else
+        if ittr = '('
+        then Buffer.add_char openParenBuf '('  (* append charPop *)
+        else
+        if ittr = ')'
+        then Buffer.add_char closeParenBuf ')'  (* append charPop *)
+    done
+
+let charBufCompOpenBuf (chrBuf :Buffer.t) (opnBuf :Buffer.t) :bool =
     if Buffer.length chrBuf =Buffer.length opnBuf - 1
     then true
     else false
 
-let charBufCompCloseBuf (chrBuf:Buffer.t) (clsBuf:Buffer.t) :bool =
+let charBufCompCloseBuf (chrBuf :Buffer.t) (clsBuf :Buffer.t) :bool =
     if Buffer.length chrBuf =Buffer.length clsBuf - 1
     then true
     else false
 
-let lengthCompRes (openComp:bool) (closeComp:bool) :bool =
+let lengthCompRes (openComp :bool) (closeComp :bool) :bool =
   if openComp == closeComp
   then true
   else false
