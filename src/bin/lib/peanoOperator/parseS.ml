@@ -14,16 +14,16 @@ let parseS (str :string) () =
     for i = 0 to String.length str do
         let (ittr :char) = str . [i] in
         if ittr = 'S'
-        then Buffer.add_char charBuf 'S'  (* append charPop *)
+        then Buffer.add_char charBuf 'S'
         else
         if ittr = 'Z'
-        then Buffer.add_char charBuf 'Z'  (* append charPop *)
+        then Buffer.add_char charBuf 'Z'
         else
         if ittr = '('
-        then Buffer.add_char openParenBuf '('  (* append charPop *)
+        then Buffer.add_char openParenBuf '('
         else
         if ittr = ')'
-        then Buffer.add_char closeParenBuf ')'  (* append charPop *)
+        then Buffer.add_char closeParenBuf ')'
     done
 
 let charBufCompOpenBuf (chrBuf :Buffer.t) (opnBuf :Buffer.t) :bool =
