@@ -10,7 +10,7 @@ let parenBuf = Buffer.create 128
 
 (* func *)
 
-let parseS (str :string) () =
+let parseToken (str :string) =
     for i = 0 to String.length str do
         let (ittr :char) = str . [i] in
         if ittr = 'S'
