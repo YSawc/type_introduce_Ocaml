@@ -15,15 +15,19 @@ let parseToken (str :string) =
         let (ittr :char) = str . [i] in
         if ittr = 'S'
         then Buffer.add_char charBuf 'S'
+            (* TODO: add flag of SRead *)
         else
         if ittr = 'Z'
         then Buffer.add_char charBuf 'Z'
+            (* TODO: add flag of ZRead *)
         else
         if ittr = '('
         then Buffer.add_char openParenBuf '('
+            (* TODO: add flag of openParenRead *)
         else
         if ittr = ')'
         then Buffer.add_char closeParenBuf ')'
+            (* TODO: add flag of closeParenRead *)
     done
 
 let charBufCompOpenBuf (chrBuf :Buffer.t) (opnBuf :Buffer.t) :bool =
