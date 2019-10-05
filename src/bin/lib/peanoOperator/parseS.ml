@@ -79,6 +79,11 @@ let lengthCompRes (openComp :bool) (closeComp :bool) :bool =
     (*         flag__readCloseParen *)
     (* done *)
 
+let flag (flagArg:bit) (switch:bit) = match flagArg with
+    | Zero -> switch = Zero
+    | One ->  switch = One
+;;
+
 (* let flag__charBufCompOpenBuf (chrBuf :Buffer.t) (opnBuf :Buffer.t) :bool = *)
 (*     if Buffer.length chrBuf = Buffer.length opnBuf - 1 *)
 (*     then true *)
