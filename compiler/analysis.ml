@@ -12,8 +12,11 @@ let parseS () =
 let parseZ () =
   false
 
-let parseParen :bool () =
-  false
+type parenType = Open_paren | Close_paren
+
+let parseParen = function
+  | Open_paren  -> false
+  | Close_paren -> false
 
 let read_input (str:string) =
   let len = String.length str in
