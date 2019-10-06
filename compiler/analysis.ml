@@ -21,13 +21,14 @@ let parseParen = function
 let read_input (str:string) =
   let len = String.length str in
   let i = 0 in
-  let chr = str . [i] in
   let rec read_token = function
     (* TODO: fix repetition *)
-    | (chr) when chr = 'S' -> parseS
-    | (chr) when chr = 'Z' -> parseZ
-    | (chr) when chr = '(' -> parseParen opn
-    | (chr) when chr = ')' -> parseParen cls
+    | (current, chr) when current >= len -> parseZ
+    | (current, chr) when chr = 'S' -> parseS
+    | (current, chr) when chr = 'Z' -> parseZ
+    (* | (current, chr) when chr = '(' -> parseParen (Open_paren) *)
+    (* | (current, chr) when chr = ')' -> parseParen (Close_paren) *)
+    | _ -> raise @@ Invalid_argument "Error cause with "
   in
   let i = i + 1 in
   read_token (str . [i + 1])
