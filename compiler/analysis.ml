@@ -15,8 +15,8 @@ let parseZ () =
 type parenType = Open_paren | Close_paren
 
 let parseParen = function
-  | Open_paren  -> false
-  | Close_paren -> false
+  | (Open_paren)  -> ()
+  | (Close_paren) -> ()
 
 let read_input (str:string) =
   let len = String.length str in
