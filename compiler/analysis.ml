@@ -1,18 +1,12 @@
-type bit
+type bit = Zero | One
 
-let analysis : bool =
-  false
-(* return boolean execution of expr *)
-
-let parseS =
-  print_string ("from parseS" ^ "\n" )
-
-let parseZ =
-  print_string ( "from parseZ" ^ "\n" )
-
-let void () = ()
+type peanoType = Z | S
 
 type parenType = Open_paren | Close_paren
+
+let parsePeano peanoType = match peanoType with
+  | Z -> print_string ("parsed Z" ^ "\n" )
+  | S -> print_string ("parsed S" ^ "\n" )
 
 let parseParen parenType = match parenType with
   | Open_paren  -> print_string ( "Close_paren" ^ "\n" )
@@ -22,11 +16,9 @@ let read_input (str:string) =
   let len = String.length str in
   for i = 0 to len - 1 do
     match str . [i] with
-    | 'S' -> parseS
-    | 'Z' -> parseZ
+    | 'Z' -> parsePeano Z
+    | 'S' -> parsePeano S
     | '(' -> parseParen Open_paren
     | ')' -> parseParen Close_paren
     | _ -> ()
   done
-
-(* parseParen Open_paren *)
