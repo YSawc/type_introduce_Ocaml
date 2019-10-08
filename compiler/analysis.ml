@@ -1,8 +1,16 @@
+(* TODO: open Binary *)
+
 type bit = Zero | One
 
 type peanoType = Zero | Successor
 
 type parenType = Open_paren | Close_paren
+
+(* TODO: *)
+(* type readPeanoFlag = *)
+
+(* TODO: *)
+(* let readTokenFlag = *)
 
 let parsePeano peanoType = match peanoType with
   | Zero -> print_string ("parsed Z" ^ "\n" )
