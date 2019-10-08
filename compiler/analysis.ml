@@ -12,6 +12,9 @@ let parseParen parenType = match parenType with
   | Open_paren  -> print_string ( "Close_paren" ^ "\n" )
   | Close_paren  -> print_string ( "Close_paren" ^ "\n" )
 
+let invalid_token =
+  raise (Failure "Invalid token read")
+
 let read_input (str:string) =
   let len = String.length str in
   for i = 0 to len - 1 do
@@ -20,5 +23,5 @@ let read_input (str:string) =
     | 'S' -> parsePeano S
     | '(' -> parseParen Open_paren
     | ')' -> parseParen Close_paren
-    | _ -> ()
+    | _ -> invalid_token
   done
