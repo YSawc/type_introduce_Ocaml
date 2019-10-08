@@ -15,6 +15,8 @@ let void () = ()
 type parenType = Open_paren | Close_paren
 
 let parseParen parenType = match parenType with
+  | Open_paren  -> print_string ( "Close_paren" ^ "\n" )
+  | Close_paren  -> print_string ( "Close_paren" ^ "\n" )
 
 let read_input (str:string) =
   let len = String.length str in
