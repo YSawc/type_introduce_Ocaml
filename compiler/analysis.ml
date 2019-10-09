@@ -15,13 +15,23 @@ let sflag : bit = Zero
 let openParenFlag : bit = Zero
 let closeParenFlag : bit = Zero
 
+(* func *)
+
+let readPeanoFlag bit peanoType = function
+  | (bit, Zero) -> zflag = bit
+  | (bit, Successor) -> sflag = bit
+
+let readParenFlag bit parenType = function
+  | (bit, Open_paren) -> openParenFlag = bit
+  | (bit, Close_paren) -> closeParenFlag = bit
+
 let parsePeano peanoType = match peanoType with
-  | Zero -> print_string ("parsed Z" ^ "\n" )
-  | Successor -> print_string ("parsed S" ^ "\n" )
+  | Zero -> ()
+  | Successor -> ()
 
 let parseParen parenType = match parenType with
-  | Open_paren  -> print_string ( "Close_paren" ^ "\n" )
-  | Close_paren  -> print_string ( "Close_paren" ^ "\n" )
+  | Open_paren  -> ()
+  | Close_paren  -> ()
 
 let invalid_token =
   raise (Failure "Invalid token read")
