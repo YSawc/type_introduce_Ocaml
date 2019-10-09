@@ -1,5 +1,7 @@
 (* TODO: open Binary *)
 
+(* type *)
+
 type bit = Zero | One
 
 type peanoType = Zero | Successor
