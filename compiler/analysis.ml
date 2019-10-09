@@ -6,7 +6,12 @@ type peanoType = Zero | Successor
 
 type parenType = Open_paren | Close_paren
 
+(* init *)
 
+let zflag : bit = Zero
+let sflag : bit = Zero
+let openParenFlag : bit = Zero
+let closeParenFlag : bit = Zero
 
 let parsePeano peanoType = match peanoType with
   | Zero -> print_string ("parsed Z" ^ "\n" )
