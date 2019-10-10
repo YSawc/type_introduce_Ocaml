@@ -32,8 +32,13 @@ let readPeanoFlag bit peanoType = function
       sFlag = bit
 
 let readParenFlag bit parenType = function
-  | (bit, Open_paren) -> openParenFlag = bit
-  | (bit, Close_paren) -> closeParenFlag = bit
+  | (bit, Open_paren) ->
+    if openParenFlag = One && bit = One
+    then
+      raise (Failure "OpenParen is already read. Please fix chain of openParen.")
+    else
+      openParenFlag = bit
+  | (bit, Close_paren) ->
 
 let parsePeano peanoType = match peanoType with
   | Zero -> readParenFlag One Zero
