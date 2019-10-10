@@ -10,24 +10,34 @@ type parenType = Open_paren | Close_paren
 
 (* init *)
 
-let zflag : bit = Zero
-let sflag : bit = Zero
+let zFlag : bit = Zero (* zlag is not switch One to Zero *)
+let sFlag : bit = Zero
 let openParenFlag : bit = Zero
 let closeParenFlag : bit = Zero
 
 (* func *)
 
 let readPeanoFlag bit peanoType = function
-  | (bit, Zero) -> zflag = bit
-  | (bit, Successor) -> sflag = bit
+  | (bit, Zero) ->
+    if zFlag = One && bit = One
+    then
+      raise (Failure "Z is already read. Z match only one times in peano")
+    else
+      zFlag = bit
+  | (bit, Successor) ->
+    if sFlag = One && bit = One
+    then
+      raise (Failure "S is already read. Please fix chain of successor.")
+    else
+      sFlag = bit
 
 let readParenFlag bit parenType = function
   | (bit, Open_paren) -> openParenFlag = bit
   | (bit, Close_paren) -> closeParenFlag = bit
 
 let parsePeano peanoType = match peanoType with
-  | Zero -> ()
-  | Successor -> ()
+  | Zero -> readParenFlag One Zero
+  | Successor -> readParenFlag One Successor
 
 let parseParen parenType = match parenType with
   | Open_paren  -> ()
