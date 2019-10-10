@@ -15,6 +15,9 @@ let sFlag : bit = Zero
 let openParenFlag : bit = Zero
 let closeParenFlag : bit = Zero
 
+
+let sChain : int = 0
+
 (* func *)
 
 let readPeanoFlag bit peanoType = function
@@ -39,6 +42,14 @@ let readParenFlag bit parenType = function
     else
       openParenFlag = bit
   | (bit, Close_paren) ->
+    (*
+     * TIP:
+     * Close_paren chains just count of sChain.
+     * If not chains just the count, SyntaxError occure .
+     *)
+    (* FIXME: *)
+    closeParenFlag = bit
+
 
 let parsePeano peanoType = match peanoType with
   | Zero -> readParenFlag One Zero
