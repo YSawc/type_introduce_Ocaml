@@ -16,7 +16,7 @@ let openParenFlag : bit = Zero
 let closeParenFlag : bit = Zero
 
 
-let sChain : int = 0
+let sChain = ref 0
 
 (* func *)
 
@@ -32,7 +32,8 @@ let readPeanoFlag bit peanoType = function
     then
       raise (Failure "S is already read. Please fix chain of successor.")
     else
-      sFlag = bit
+      sChain := !sChain + 1;
+    sFlag = bit
 
 let readParenFlag bit parenType = function
   | (bit, Open_paren) ->
@@ -69,6 +70,6 @@ let read_input (str:string) =
     | 'Z' -> parsePeano Zero
     | 'S' -> parsePeano Successor
     | '(' -> parseParen Open_paren
-    | ')' -> parseParen Close_paren
+    | ')' -> parseParen Close_paren (* If parse Close_paren, it means end of peanos *)
     | _ -> invalid_token
   done
