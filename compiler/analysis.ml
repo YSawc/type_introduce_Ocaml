@@ -10,38 +10,39 @@ type parenType = Open_paren | Close_paren
 
 (* init *)
 
-let zFlag : bit = Zero (* zlag is not switch One to Zero *)
-let sFlag : bit = Zero
-let openParenFlag : bit = Zero
-let closeParenFlag : bit = Zero
+let zFlag = ref Zero (* zlag is not switch One to Zero *)
+let sFlag = ref Zero
+let openParenFlag = ref Zero
+let closeParenFlag = ref Zero
 
+(* let tokenFlag = [!zFlag; !sFlag; openParenFlag] *)
 
 let sChain = ref 0
 
 (* func *)
 
-let readPeanoFlag bit peanoType = function
-    if zFlag = One && bit = One
+let readPeanoFlag = function
   | (bit, ZeroP) ->
+    if bit = One && !zFlag = One
     then
       raise (Failure "Z is already read. Z match only one times in peano")
     else
-      zFlag = bit
+      zFlag := bit
   | (bit, Successor) ->
-    if sFlag = One && bit = One
+    if bit = One && !sFlag = One
     then
       raise (Failure "S is already read. Please fix chain of successor.")
     else
       sChain := !sChain + 1;
-    sFlag = bit
+    sFlag := bit
 
-let readParenFlag bit parenType = function
+let readParenFlag = function
   | (bit, Open_paren) ->
-    if openParenFlag = One && bit = One
+    if bit = One && !openParenFlag = One
     then
       raise (Failure "OpenParen is already read. Please fix chain of openParen.")
     else
-      openParenFlag = bit
+      openParenFlag := bit
   | (bit, Close_paren) ->
     (*
      * TIP:
@@ -49,19 +50,19 @@ let readParenFlag bit parenType = function
      * If not chains just the count, SyntaxError occure .
      *)
     (* FIXME: *)
-    closeParenFlag = bit
+    closeParenFlag := bit
 
+let parsePeano = function
+  | ZeroP -> readPeanoFlag (One, ZeroP)
+  | Successor -> readPeanoFlag (One, Successor)
 
-let parsePeano peanoType = match peanoType with
-  | Zero -> readParenFlag One Zero
-  | Successor -> readParenFlag One Successor
+let parseParen = function
+  | Open_paren -> readParenFlag (One, Open_paren)
+  | Close_paren -> readParenFlag (One, Close_paren)
 
-let parseParen parenType = match parenType with
-  | Open_paren  -> ()
-  | Close_paren  -> ()
-
-let invalid_token =
-  raise (Failure "Invalid token read")
+(* TODO: check each flag *)
+(* let check_each_flag tokenFlag = match tokenFlag with *)
+(*   | readToken *)
 
 let read_input (str:string) =
   let len = String.length str in
@@ -71,5 +72,5 @@ let read_input (str:string) =
     | 'S' -> parsePeano Successor
     | '(' -> parseParen Open_paren
     | ')' -> parseParen Close_paren (* If parse Close_paren, it means end of peanos *)
-    | _ -> invalid_token
+    | _ -> raise (Failure "Invalid token read")
   done
