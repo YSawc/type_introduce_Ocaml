@@ -21,20 +21,36 @@ let sChain = ref 0
 
 (* func *)
 
+(* FIXME:
+ * condense flagSwitch into one
+ * *)
+let zFlagSwitch bit =
+  zFlag := bit;
+  sFlag := Zero;
+  openParenFlag := Zero
+let sFlagSwitch bit =
+  zFlag := Zero;
+  sFlag := bit;
+  openParenFlag := Zero
+let openParenFlagSwitch bit =
+  zFlag := Zero;
+  sFlag := Zero;
+  openParenFlag := bit
+
 let readPeanoFlag = function
   | (bit, ZeroP) ->
     if bit = One && !zFlag = One
     then
       raise (Failure "Z is already read. Z match only one times in peano")
     else
-      zFlag := bit
+      zFlagSwitch bit
   | (bit, Successor) ->
     if bit = One && !sFlag = One
     then
       raise (Failure "S is already read. Please fix chain of successor.")
     else
       sChain := !sChain + 1;
-    sFlag := bit
+    sFlagSwitch bit
 
 let readParenFlag = function
   | (bit, Open_paren) ->
@@ -42,7 +58,7 @@ let readParenFlag = function
     then
       raise (Failure "OpenParen is already read. Please fix chain of openParen.")
     else
-      openParenFlag := bit
+      openParenFlagSwitch bit
   | (bit, Close_paren) ->
     (*
      * TIP:
