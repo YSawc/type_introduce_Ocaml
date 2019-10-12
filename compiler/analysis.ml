@@ -1,29 +1,17 @@
 (* TODO: open Binary *)
 
-(* type *)
-
 type bit = Zero | One
 
 type peanoType = ZeroP | Successor
 
 type parenType = Open_paren | Close_paren
 
-(* init *)
-
 let zFlag = ref Zero (* zlag is not switch One to Zero *)
 let sFlag = ref Zero
 let openParenFlag = ref Zero
 let closeParenFlag = ref Zero
-
-(* let tokenFlag = [!zFlag; !sFlag; openParenFlag] *)
-
 let sChain = ref 0
 
-(* func *)
-
-(* FIXME:
- * condense flagSwitch into one
- * *)
 let zFlagSwitch bit =
   zFlag := bit;
   sFlag := Zero;
