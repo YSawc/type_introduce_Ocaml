@@ -24,14 +24,22 @@ let openParenFlagSwitch bit =
   zFlag := Zero;
   sFlag := Zero;
   openParenFlag := bit
+let closeParenFlagSwitch bit =
+  zFlag := Zero;
+  sFlag := Zero;
+  openParenFlag := Zero;
+  closeParenFlag := bit
+
+let checkAfterCloseParenToken =
+  if !closeParenFlag = One
+  then
+    raise (Failure "Don't put token after closeParenthesis. CloseParenthesis means end of chainToken.")
 
 let readPeanoFlag = function
   | (bit, ZeroP) ->
     if bit = One && !zFlag = One
-    then
-      raise (Failure "Z is already read. Z match only one times in peano")
-    else
-      zFlagSwitch bit
+    then raise (Failure "Z is already read. Z match only one times in peano")
+    else zFlagSwitch bit
   | (bit, Successor) ->
     if bit = One && !sFlag = One
     then
@@ -43,10 +51,8 @@ let readPeanoFlag = function
 let readParenFlag = function
   | (bit, Open_paren) ->
     if bit = One && !openParenFlag = One
-    then
-      raise (Failure "OpenParen is already read. Please fix chain of openParen.")
-    else
-      openParenFlagSwitch bit
+    then raise (Failure "OpenParen is already read. Please fix chain of openParen.")
+    else openParenFlagSwitch bit
   | (bit, Close_paren) ->
     (*
      * TIP:
@@ -54,7 +60,7 @@ let readParenFlag = function
      * If not chains just the count, SyntaxError occure .
      *)
     (* FIXME: *)
-    closeParenFlag := bit
+    closeParenFlagSwitch bit
 
 let parsePeano = function
   | ZeroP -> readPeanoFlag (One, ZeroP)
@@ -72,9 +78,10 @@ let read_input (str:string) =
   let len = String.length str in
   for i = 0 to len - 1 do
     match str . [i] with
-    | 'Z' -> parsePeano ZeroP
-    | 'S' -> parsePeano Successor
-    | '(' -> parseParen Open_paren
+    (* FIXME: refactoring *)
+    | 'Z' -> checkAfterCloseParenToken; parsePeano ZeroP
+    | 'S' -> checkAfterCloseParenToken; parsePeano Successor
+    | '(' -> checkAfterCloseParenToken; parseParen Open_paren
     | ')' -> parseParen Close_paren (* If parse Close_paren, it means end of peanos *)
     | _ -> raise (Failure "Invalid token read")
   done
