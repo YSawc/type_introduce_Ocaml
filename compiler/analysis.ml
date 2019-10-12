@@ -54,13 +54,17 @@ let readParenFlag = function
     then raise (Failure "OpenParen is already read. Please fix chain of openParen.")
     else openParenFlagSwitch bit
   | (bit, Close_paren) ->
+    if bit = One && !zFlag = Zero
+    then
+      raise (Failure "Don't use with closeParenthesis without put ZeroPeano")
+    else
+      closeParenFlagSwitch bit
     (*
      * TIP:
      * Close_paren chains just count of sChain.
      * If not chains just the count, SyntaxError occure .
      *)
-    (* FIXME: *)
-    closeParenFlagSwitch bit
+(* FIXME: *)
 
 let parsePeano = function
   | ZeroP -> readPeanoFlag (One, ZeroP)
