@@ -50,6 +50,10 @@ let readPeanoFlag = function
 
 let readParenFlag = function
   | (bit, Open_paren) ->
+    if bit = One && !sFlag != One
+    then
+      raise (Failure "Don't use openParenthesis without put SuccessorPeano")
+    else
     if bit = One && !openParenFlag = One
     then raise (Failure "OpenParen is already read. Please fix chain of openParen.")
     else openParenFlagSwitch bit
