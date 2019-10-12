@@ -75,16 +75,14 @@ let readParenFlag = function
       then
         raise (Failure "Don't use with closeParenthesis without put ZeroPeano")
       else
-        (
-          closeParenCount := !closeParenCount + 1;
-          closeParenFlagSwitch bit
+        ( closeParenCount := !closeParenCount + 1
+        ; closeParenFlagSwitch bit
         )
     else
     if bit = One && !zFlag = One
     then
-      (
-        closeParenCount := !closeParenCount + 1;
-        closeParenFlagSwitch bit
+      ( closeParenCount := !closeParenCount + 1
+      ; closeParenFlagSwitch bit
       )
 
 let parsePeano = function
@@ -110,5 +108,6 @@ let read_input (str:string) =
   then
     raise (Failure "Please fix closeParenthesis just count of SuccessorPeano")
   else
-    sCount := 0;
-  closeParenCount := 0
+    ( sCount := 0
+    ; closeParenCount := 0
+    )
