@@ -1,4 +1,5 @@
-(* TODO: open Binary *)
+(* TODO: *)
+(* open Binary *)
 
 type bit = Zero | One
 
