@@ -10,7 +10,8 @@ let zFlag = ref Zero (* zlag is not switch One to Zero *)
 let sFlag = ref Zero
 let openParenFlag = ref Zero
 let closeParenFlag = ref Zero
-let sChain = ref 0
+let sCount = ref 0
+let closeParenCount = ref 0
 
 let zFlagSwitch bit =
   zFlag := bit;
@@ -54,7 +55,7 @@ let readPeanoFlag = function
     then
       raise (Failure "S is already read. Please fix chain of successor.")
     else
-      sChain := !sChain + 1;
+      sCount := !sCount + 1;
     sFlagSwitch bit
 
 (* FIXME: use checkAfterCloseParenToken to call expeption when put peanoToken after closeParen *)
@@ -78,7 +79,18 @@ let readParenFlag = function
       then
         raise (Failure "Don't use with closeParenthesis without put ZeroPeano")
       else
+        (
+          closeParenCount := !closeParenCount + 1;
+          closeParenFlagSwitch bit
+        )
+    else
+    if bit = One && !zFlag = One
+    then
+      (
+        closeParenCount := !closeParenCount + 1;
         closeParenFlagSwitch bit
+      )
+
     (*
      * TIP:
      * Close_paren chains just count of sChain.
@@ -109,3 +121,7 @@ let read_input (str:string) =
     | ')' -> parseParen Close_paren (* If parse Close_paren, it means end of peanos *)
     | _ -> raise (Failure "Invalid token read")
   done
+  ;
+  if !sCount <> !closeParenCount
+  then
+    raise (Failure "Please fix closeParenthesis just count of SuccessorPeano")
