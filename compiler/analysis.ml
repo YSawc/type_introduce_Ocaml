@@ -125,3 +125,6 @@ let read_input (str:string) =
   if !sCount <> !closeParenCount
   then
     raise (Failure "Please fix closeParenthesis just count of SuccessorPeano")
+  else
+    sCount := 0;
+  closeParenCount := 0
