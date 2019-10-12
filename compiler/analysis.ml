@@ -6,7 +6,7 @@ type peanoType = ZeroP | Successor
 
 type parenType = Open_paren | Close_paren
 
-let zFlag = ref Zero (* zlag is not switch One to Zero *)
+let zFlag = ref Zero
 let sFlag = ref Zero
 let openParenFlag = ref Zero
 let closeParenFlag = ref Zero
@@ -30,11 +30,6 @@ let closeParenFlagSwitch bit =
   sFlag := Zero;
   openParenFlag := Zero;
   closeParenFlag := bit
-
-(* let checkAfterCloseParenToken = *)
-(*   if !closeParenFlag = One *)
-(*   then *)
-(*     raise (Failure "Don't put token after closeParenthesis. CloseParenthesis means end of chainToken.") *)
 
 (* FIXME: use checkAfterCloseParenToken to call expeption when put peanoToken after closeParen *)
 let readPeanoFlag = function
@@ -91,13 +86,6 @@ let readParenFlag = function
         closeParenFlagSwitch bit
       )
 
-    (*
-     * TIP:
-     * Close_paren chains just count of sChain.
-     * If not chains just the count, SyntaxError occure .
-     *)
-(* FIXME: *)
-
 let parsePeano = function
   | ZeroP -> readPeanoFlag (One, ZeroP)
   | Successor -> readPeanoFlag (One, Successor)
@@ -106,19 +94,14 @@ let parseParen = function
   | Open_paren -> readParenFlag (One, Open_paren)
   | Close_paren -> readParenFlag (One, Close_paren)
 
-(* TODO: check each flag *)
-(* let check_each_flag tokenFlag = match tokenFlag with *)
-(*   | readToken *)
-
 let read_input (str:string) =
   let len = String.length str in
   for i = 0 to len - 1 do
     match str . [i] with
-    (* FIXME: refactoring *)
     | 'Z' -> parsePeano ZeroP
     | 'S' -> parsePeano Successor
     | '(' -> parseParen Open_paren
-    | ')' -> parseParen Close_paren (* If parse Close_paren, it means end of peanos *)
+    | ')' -> parseParen Close_paren
     | _ -> raise (Failure "Invalid token read")
   done
   ;
