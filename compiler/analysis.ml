@@ -30,17 +30,26 @@ let closeParenFlagSwitch bit =
   openParenFlag := Zero;
   closeParenFlag := bit
 
-let checkAfterCloseParenToken =
-  if !closeParenFlag = One
-  then
-    raise (Failure "Don't put token after closeParenthesis. CloseParenthesis means end of chainToken.")
+(* let checkAfterCloseParenToken = *)
+(*   if !closeParenFlag = One *)
+(*   then *)
+(*     raise (Failure "Don't put token after closeParenthesis. CloseParenthesis means end of chainToken.") *)
 
+(* FIXME: use checkAfterCloseParenToken to call expeption when put peanoToken after closeParen *)
 let readPeanoFlag = function
   | (bit, ZeroP) ->
+    if !closeParenFlag = One
+    then
+      raise (Failure "Don't put token after closeParenthesis. CloseParenthesis means end of chainToken.")
+    else
     if bit = One && !zFlag = One
     then raise (Failure "Z is already read. Z match only one times in peano")
     else zFlagSwitch bit
   | (bit, Successor) ->
+    if !closeParenFlag = One
+    then
+      raise (Failure "Don't put token after closeParenthesis. CloseParenthesis means end of chainToken.")
+    else
     if bit = One && !sFlag = One
     then
       raise (Failure "S is already read. Please fix chain of successor.")
@@ -48,8 +57,13 @@ let readPeanoFlag = function
       sChain := !sChain + 1;
     sFlagSwitch bit
 
+(* FIXME: use checkAfterCloseParenToken to call expeption when put peanoToken after closeParen *)
 let readParenFlag = function
   | (bit, Open_paren) ->
+    if !closeParenFlag = One
+    then
+      raise (Failure "Don't put token after closeParenthesis. CloseParenthesis means end of chainToken.")
+    else
     if bit = One && !sFlag != One
     then
       raise (Failure "Don't use openParenthesis without put SuccessorPeano")
@@ -60,9 +74,11 @@ let readParenFlag = function
   | (bit, Close_paren) ->
     if bit = One && !zFlag = Zero
     then
-      raise (Failure "Don't use with closeParenthesis without put ZeroPeano")
-    else
-      closeParenFlagSwitch bit
+      if !closeParenFlag = Zero
+      then
+        raise (Failure "Don't use with closeParenthesis without put ZeroPeano")
+      else
+        closeParenFlagSwitch bit
     (*
      * TIP:
      * Close_paren chains just count of sChain.
@@ -87,9 +103,9 @@ let read_input (str:string) =
   for i = 0 to len - 1 do
     match str . [i] with
     (* FIXME: refactoring *)
-    | 'Z' -> checkAfterCloseParenToken; parsePeano ZeroP
-    | 'S' -> checkAfterCloseParenToken; parsePeano Successor
-    | '(' -> checkAfterCloseParenToken; parseParen Open_paren
+    | 'Z' -> parsePeano ZeroP
+    | 'S' -> parsePeano Successor
+    | '(' -> parseParen Open_paren
     | ')' -> parseParen Close_paren (* If parse Close_paren, it means end of peanos *)
     | _ -> raise (Failure "Invalid token read")
   done
