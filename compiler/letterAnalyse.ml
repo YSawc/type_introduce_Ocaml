@@ -15,6 +15,7 @@ let closeParenFlag = ref Zero
 let sCount = ref 0
 let closeParenCount = ref 0
 
+(* FIXME: manage flag is not necessary of globalValiable.*)
 let zFlagSwitch bit =
   zFlag := bit;
   sFlag := Zero;
