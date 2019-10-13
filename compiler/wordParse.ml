@@ -24,7 +24,7 @@ let parseWords (words:string) : string list =
   Str.split (Str.regexp " " ) words
 
 let parsePeanoSyntax (peano:string) =
-  ()
+  read_input @@ peano
 
 let parseOperatorSyntax (operator:string) =
   ()
