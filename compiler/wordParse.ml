@@ -7,6 +7,17 @@ type operatorType =
   | Times
   | Is
 
+type operatorData =
+  { name: string
+  ; operator : operatorType
+  }
+
+let operatorDatas =
+  [ { name = "plus"; operator = Plus }
+  ; { name = "times"; operator = Times }
+  ; { name = "is"; operator = Is }
+  ]
+
 let parseWords (words:string) : string list =
   Str.split (Str.regexp " " ) words
 
