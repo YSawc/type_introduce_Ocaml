@@ -47,3 +47,9 @@ let parseWord (rowStr:string) =
   | _ ->
     operatorDetector @@ rowStr
 
+let parseDetector (rowStr:string) =
+  let rowStrList = parseWords @@ rowStr in
+  let len = List.length rowStrList in
+  for i = 0 to len - 1 do
+    parseWord @@ List.nth rowStrList i
+  done
