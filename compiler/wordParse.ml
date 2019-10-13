@@ -24,12 +24,23 @@ let parseWords (words:string) : string list =
 let parsePeanoSyntax (peano:string) =
   ()
 
-let parseSyntax = function
-  | Peano -> ()
-  | Operation -> ()
+let parseOperatorSyntax (operator:string) =
+  ()
+
+let rec operatorDetector rowWord =
+  match operatorDatas with
+  (* TODO: over valiable *)
+    [] -> raise (Failure "Invalid word detected with [] .")
+  | { name = n; operator = _} :: rest ->
+    if rowWord = n
+    then
+      parseOperatorSyntax @@ rowWord
+    else
+      operatorDetector @@ rowWord
 
 let parseWord (word:string) =
   match word . [0] with
-  | 'S' | 'Z' -> parseSyntax Peano
+  | 'S' | 'Z' -> parsePeanoSyntax @@ word
   (* TODO: refactoring *)
-  | _ -> ()
+  | _ ->
+    operatorDetector @@ word
