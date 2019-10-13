@@ -31,21 +31,21 @@ let parsePeanoSyntax (peano:string) =
 let parseOperatorSyntax (operator:string) =
   ()
 
-let rec operatorDetector rowWord =
+let rec operatorDetector (rowWord:string) (operatorDatas) =
   match operatorDatas with
-    [] -> raise (Failure "Invalid word detected with [] .")
+  | [] -> raise (Failure "Invalid word detected with [] .")
   | { name = n; operator = _} :: rest ->
     if rowWord = n
     then
       parseOperatorSyntax @@ rowWord
     else
-      operatorDetector @@ rowWord
+      operatorDetector rowWord rest
 
 let parseWord (rowStr:string) =
   match rowStr . [0] with
   | 'S' | 'Z' -> parsePeanoSyntax @@ rowStr
   | _ ->
-    operatorDetector @@ rowStr
+    operatorDetector rowStr operatorDatas
 
 let parseDetector (rowStr:string) =
   let rowStrList = parseWords @@ rowStr in
