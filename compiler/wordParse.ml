@@ -2,7 +2,7 @@ type wordType =
   | Peano
   | Operation
 
-type operations =
+type operatorType =
   | Plus
   | Times
   | Is
