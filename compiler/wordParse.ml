@@ -41,8 +41,9 @@ let rec operatorDetector rowWord =
     else
       operatorDetector @@ rowWord
 
-let parseWord (word:string) =
-  match word . [0] with
-  | 'S' | 'Z' -> parsePeanoSyntax @@ word
+let parseWord (rowStr:string) =
+  match rowStr . [0] with
+  | 'S' | 'Z' -> parsePeanoSyntax @@ rowStr
   | _ ->
-    operatorDetector @@ word
+    operatorDetector @@ rowStr
+
