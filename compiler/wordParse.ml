@@ -1,5 +1,7 @@
 open LetterAnalyse
 
+(* TODO:
+ * call types from module *)
 type wordType =
   | Peano
   | Operation
@@ -31,7 +33,6 @@ let parseOperatorSyntax (operator:string) =
 
 let rec operatorDetector rowWord =
   match operatorDatas with
-  (* TODO: over valiable *)
     [] -> raise (Failure "Invalid word detected with [] .")
   | { name = n; operator = _} :: rest ->
     if rowWord = n
@@ -43,6 +44,5 @@ let rec operatorDetector rowWord =
 let parseWord (word:string) =
   match word . [0] with
   | 'S' | 'Z' -> parsePeanoSyntax @@ word
-  (* TODO: refactoring *)
   | _ ->
     operatorDetector @@ word
