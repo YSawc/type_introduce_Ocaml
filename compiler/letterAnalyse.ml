@@ -74,7 +74,7 @@ let readParenFlag = function
     then
       raise (Failure "Don't put token after closeParenthesis. CloseParenthesis means end of chainToken.")
     else
-    if bit = One && !sFlag != One
+    if bit = One && !sFlag <> One
     then
       raise (Failure "Don't use openParenthesis without put SuccessorPeano")
     else
