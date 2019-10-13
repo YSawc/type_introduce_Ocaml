@@ -9,6 +9,7 @@ type parenType = Open_paren | Close_paren
 
 let zFlag = ref Zero
 let sFlag = ref Zero
+let zeroPeanoFlag= ref Zero
 let openParenFlag = ref Zero
 let closeParenFlag = ref Zero
 let sCount = ref 0
@@ -35,6 +36,14 @@ let closeParenFlagSwitch bit =
 (* FIXME: use checkAfterCloseParenToken to call expeption when put peanoToken after closeParen *)
 let readPeanoFlag = function
   | (bit, ZeroP) ->
+    if bit = One && !sFlag = Zero && !openParenFlag = Zero
+    then
+      zeroPeanoFlag := One
+    else
+    if !zeroPeanoFlag = One
+    then
+      raise (Failure "Don't put token after token of peanoZero. PeanoZero can only put simple substance.")
+    else
     if !closeParenFlag = One
     then
       raise (Failure "Don't put token after closeParenthesis. CloseParenthesis means end of chainToken.")
@@ -57,6 +66,10 @@ let readPeanoFlag = function
 (* FIXME: use checkAfterCloseParenToken to call expeption when put peanoToken after closeParen *)
 let readParenFlag = function
   | (bit, Open_paren) ->
+    if !zeroPeanoFlag = One
+    then
+      raise (Failure "Don't put token after token of peanoZero. PeanoZero can only put simple substance.")
+    else
     if !closeParenFlag = One
     then
       raise (Failure "Don't put token after closeParenthesis. CloseParenthesis means end of chainToken.")
@@ -69,6 +82,10 @@ let readParenFlag = function
     then raise (Failure "OpenParen is already read. Please fix chain of openParen.")
     else openParenFlagSwitch bit
   | (bit, Close_paren) ->
+    if !zeroPeanoFlag = One
+    then
+      raise (Failure "Don't put token after token of peanoZero. PeanoZero can only put simple substance.")
+    else
     if bit = One && !zFlag = Zero
     then
       if !closeParenFlag = Zero
