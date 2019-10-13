@@ -1,6 +1,3 @@
-(* use *)
-
-#use "../../../assets/operators/operators.ml"
 (* test *)
 
 let test1 = peanoOperator "Z plus S(Z)" = "S(Z)"

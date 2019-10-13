@@ -1,7 +1,3 @@
-(* use *)
-
-(* func *)
-
 (* test *)
 
 let test2 = parseParenMatch "S(S(S(Z)))" = true
