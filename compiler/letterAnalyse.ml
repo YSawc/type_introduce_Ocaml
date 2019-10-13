@@ -128,3 +128,4 @@ let read_input (str:string) =
     ( sCount := 0
     ; closeParenCount := 0
     )
+(* FIXME: regardless of this function return, bitFlag needs to reset. *)
