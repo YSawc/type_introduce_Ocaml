@@ -1,3 +1,5 @@
+open LetterAnalyse
+
 type wordType =
   | Peano
   | Operation
