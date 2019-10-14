@@ -9,7 +9,7 @@ type wordType =
 type operatorType =
   | Plus
   | Times
-  (* | Is *)
+  | Is
 
 type operatorData =
   { name: string
@@ -19,7 +19,7 @@ type operatorData =
 let operatorDatas =
   [ { name = "plus"; operator = Plus }
   ; { name = "times"; operator = Times }
-    (* ; { name = "is"; operator = Is } *)
+  ; { name = "is"; operator = Is }
   ]
 
 let parseWords (words:string) : string list =
