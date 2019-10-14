@@ -22,6 +22,20 @@ let operatorDatas =
   ; { name = "is"; operator = Is }
   ]
 
+let _LLSidePeano = ref ""
+let _LRSidePeano = ref ""
+let _RSidePeano = ref ""
+
+let readPeanoIndex = ref 0
+
+let initReadPeanos =
+  _LLSidePeano := ""
+  ;
+  _LRSidePeano := ""
+  ;
+  _RSidePeano := ""
+
+
 let parseWords (words:string) : string list =
   Str.split (Str.regexp " " ) words
 
@@ -43,7 +57,23 @@ let rec operatorDetector (rowWord:string) (operatorDatas) =
 
 let parseWord (rowStr:string) =
   match rowStr . [0] with
-  | 'S' | 'Z' -> parsePeanoSyntax @@ rowStr
+  | 'S' | 'Z' ->
+    parsePeanoSyntax @@ rowStr
+    ;
+    if !readPeanoIndex = 0
+    then _LLSidePeano := rowStr
+    else
+    if !readPeanoIndex = 1
+    then _LRSidePeano := rowStr
+    else
+    if !readPeanoIndex = 2
+    then _RSidePeano := rowStr
+    else
+    if !readPeanoIndex = 3
+    then
+      raise (Failure "Total peano number is wrong! Please fix form like left n1 expr n2 expr n3.")
+    ;
+    readPeanoIndex := !readPeanoIndex + 1
   | _ ->
     operatorDetector rowStr operatorDatas
 
@@ -53,3 +83,7 @@ let parseDetector (rowStr:string) =
   for i = 0 to len - 1 do
     parseWord @@ List.nth rowStrList i
   done
+  ;
+  readPeanoIndex := 0
+  ;
+  initReadPeanos
