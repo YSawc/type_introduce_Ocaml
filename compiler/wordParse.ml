@@ -35,7 +35,6 @@ let initReadPeanos =
   ;
   _RSidePeano := ""
 
-
 let parseWords (words:string) : string list =
   Str.split (Str.regexp " " ) words
 
@@ -60,18 +59,13 @@ let parseWord (rowStr:string) =
   | 'S' | 'Z' ->
     parsePeanoSyntax @@ rowStr
     ;
-    if !readPeanoIndex = 0
-    then _LLSidePeano := rowStr
-    else
-    if !readPeanoIndex = 1
-    then _LRSidePeano := rowStr
-    else
-    if !readPeanoIndex = 2
-    then _RSidePeano := rowStr
-    else
-    if !readPeanoIndex = 3
-    then
-      raise (Failure "Total peano number is wrong! Please fix form like left n1 expr n2 expr n3.")
+    (
+      match !readPeanoIndex with
+      | 0 -> _LLSidePeano := rowStr
+      | 1 -> _LRSidePeano := rowStr
+      | 2 -> _RSidePeano := rowStr
+      | _ -> raise (Failure "Total peano number is wrong! Please fix form like left n1 expr n2 expr n3.")
+    )
     ;
     readPeanoIndex := !readPeanoIndex + 1
   | _ ->
