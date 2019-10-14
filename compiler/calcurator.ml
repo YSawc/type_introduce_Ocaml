@@ -1,7 +1,5 @@
 open WordParse
 
-let sCount = ref 0
-
 let rec countSuccessor (str:string) =
   let nextIndexOfS = String.index str 'S'
   in
@@ -9,7 +7,7 @@ let rec countSuccessor (str:string) =
     let fillStr =
       String.sub str (nextIndexOfS + 1) (String.length str)
     in
-    sCount := !sCount + 1
+    ()
     ;
     fillStr |> countSuccessor
   with Not_found ->
