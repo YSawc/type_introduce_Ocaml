@@ -11,7 +11,7 @@ let rec countSuccessor (str:string) =
     in
     sCount := !sCount + 1
     ;
-    countSuccessor fillStr
+    fillStr |> countSuccessor
   with Not_found ->
     ()
 
