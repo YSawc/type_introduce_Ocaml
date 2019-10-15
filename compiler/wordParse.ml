@@ -98,6 +98,7 @@ let parseDetector (rowStr:string) =
     parseWord @@ List.nth rowStrList i
   done
   ;
+let initDetector =
   readPeanoIndex := 0
   ;
   initReadPeanos
