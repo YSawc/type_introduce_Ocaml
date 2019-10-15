@@ -52,22 +52,31 @@ let parsePeanoSyntax (peano:string) =
   read_input @@ peano
 
 let rec operatorDetector (rowWord:string) (operatorDatas) =
-  match operatorDatas with
-  | [] -> raise (Failure "Invalid word detected with [] .")
-  | { name = n; operator = _} :: rest ->
-    if rowWord = n
-    then
+  (
+    match operatorDatas with
+    | [] -> raise (Failure "Invalid word detected with [] .")
+    | { name = n; operator = _} :: rest ->
       (
-        match !readCalcIndex with
-        | 0 -> _LCalcExpr := n
-        | 1 -> _RCalcExpr := n
-        | _ -> raise (Failure "Total expr number is wrong! Please fix form like n1 expr n2 expr n3.")
-          ;
-          ;
-          readCalcIndex := !readCalcIndex + 1
+        if rowWord = n
+        then
+          (
+            (
+              match !readCalcIndex with
+              | 0 -> _LCalcExpr := n
+              | 1 -> _RCalcExpr := n
+              | _ -> raise (Failure "Total expr number is wrong! Please fix form like n1 expr n2 expr n3.")
+            )
+            ;
+            readCalcIndex := !readCalcIndex + 1
+          )
+        ;
+        operatorDetector rowWord rest
       )
-    ;
-    operatorDetector rowWord rest
+  )
+  ;
+  if !readCalcIndex <> 1
+  then
+    raise (Failure "Total expr number is wrong! Please fix form like n1 expr n2 expr n3.")
 
 let parseWord (rowStr:string) =
   match rowStr . [0] with
