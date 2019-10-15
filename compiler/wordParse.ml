@@ -106,4 +106,8 @@ let initDetector =
   readCalcIndex  := 0
   ;
   initReadCalcExpr
+
+let wordParser (rowStr:string) =
+  rowStr |> parseDetector
   ;
+  initDetector
