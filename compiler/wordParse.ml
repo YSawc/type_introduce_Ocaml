@@ -22,18 +22,28 @@ let operatorDatas =
   ; { name = "is"; operator = Is }
   ]
 
-let _LLSidePeano = ref ""
-let _LRSidePeano = ref ""
-let _RSidePeano = ref ""
+let _LLPeano = ref ""
+let _LRPeano = ref ""
+let _RPeano = ref ""
+
+let _LCalcExpr = ref ""
+let _RCalcExpr = ref ""
 
 let readPeanoIndex = ref 0
 
+let readCalcIndex = ref 0
+
 let initReadPeanos =
-  _LLSidePeano := ""
+  _LLPeano := ""
   ;
-  _LRSidePeano := ""
+  _LRPeano := ""
   ;
-  _RSidePeano := ""
+  _RPeano := ""
+
+let initReadCalcExpr =
+  _LCalcExpr := ""
+  ;
+  _RCalcExpr := ""
 
 let parseWords (words:string) : string list =
   Str.split (Str.regexp " " ) words
@@ -41,18 +51,23 @@ let parseWords (words:string) : string list =
 let parsePeanoSyntax (peano:string) =
   read_input @@ peano
 
-let parseOperatorSyntax (operator:string) =
-  ()
-
 let rec operatorDetector (rowWord:string) (operatorDatas) =
   match operatorDatas with
   | [] -> raise (Failure "Invalid word detected with [] .")
   | { name = n; operator = _} :: rest ->
     if rowWord = n
     then
-      parseOperatorSyntax @@ rowWord
-    else
-      operatorDetector rowWord rest
+      (
+        match !readCalcIndex with
+        | 0 -> _LCalcExpr := n
+        | 1 -> _RCalcExpr := n
+        | _ -> raise (Failure "Total expr number is wrong! Please fix form like n1 expr n2 expr n3.")
+          ;
+          ;
+          readCalcIndex := !readCalcIndex + 1
+      )
+    ;
+    operatorDetector rowWord rest
 
 let parseWord (rowStr:string) =
   match rowStr . [0] with
@@ -61,10 +76,10 @@ let parseWord (rowStr:string) =
     ;
     (
       match !readPeanoIndex with
-      | 0 -> _LLSidePeano := rowStr
-      | 1 -> _LRSidePeano := rowStr
-      | 2 -> _RSidePeano := rowStr
-      | _ -> raise (Failure "Total peano number is wrong! Please fix form like left n1 expr n2 expr n3.")
+      | 0 -> _LLPeano := rowStr
+      | 1 -> _LRPeano := rowStr
+      | 2 -> _RPeano := rowStr
+      | _ -> raise (Failure "Total peano number is wrong! Please fix form like n1 expr n2 expr n3.")
     )
     ;
     readPeanoIndex := !readPeanoIndex + 1
@@ -81,3 +96,8 @@ let parseDetector (rowStr:string) =
   readPeanoIndex := 0
   ;
   initReadPeanos
+  ;
+  readCalcIndex  := 0
+  ;
+  initReadCalcExpr
+  ;
