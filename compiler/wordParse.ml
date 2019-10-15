@@ -65,15 +65,12 @@ let rec operatorDetector (rowWord:string) (operatorDatas) =
               | 0 -> _LCalcExpr := n
               | 1 -> _RCalcExpr := n
               | _ -> raise (Failure "Total expr number is wrong! Please fix form like n1 expr n2 expr n3.")
-            )
-            ;
+            );
             readCalcIndex := !readCalcIndex + 1
-          )
-        ;
+          );
         operatorDetector rowWord rest
       )
-  )
-  ;
+  );
   if !readCalcIndex <> 1
   then
     raise (Failure "Total expr number is wrong! Please fix form like n1 expr n2 expr n3.")
@@ -89,8 +86,7 @@ let parseWord (rowStr:string) =
       | 1 -> _LRPeano := rowStr
       | 2 -> _RPeano := rowStr
       | _ -> raise (Failure "Total peano number is wrong! Please fix form like n1 expr n2 expr n3.")
-    )
-    ;
+    );
     readPeanoIndex := !readPeanoIndex + 1
   | _ ->
     operatorDetector rowStr operatorDatas
