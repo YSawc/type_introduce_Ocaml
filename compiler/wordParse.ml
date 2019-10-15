@@ -2,6 +2,15 @@ open LetterAnalyse
 
 (* TODO:
  * call types from module *)
+
+type preExprTokens_t = {
+  d_LLPeano : string;
+  d_LRPeano : string;
+  d_RPeano : string;
+  d_LCalcExpr : string;
+  d_RCalcExpr : string;
+}
+
 type wordType =
   | Peano
   | Operation
@@ -44,6 +53,30 @@ let initReadCalcExpr =
   _LCalcExpr := ""
   ;
   _RCalcExpr := ""
+
+let preExprTokens =
+  ref
+    { d_LLPeano = ""
+    ; d_LRPeano = ""
+    ; d_RPeano = ""
+    ; d_LCalcExpr = ""
+    ; d_RCalcExpr = ""
+    ;}
+
+let setPreExprTokens
+    (a_LLPeano:string)
+    (a_LRPeano:string)
+    (a_RPeano:string)
+    (a_LCalcExp:string)
+    (a_RCalcExp:string)
+  =
+  preExprTokens :=
+    { d_LLPeano = a_LLPeano
+    ; d_LRPeano = a_LRPeano
+    ; d_RPeano = a_RPeano
+    ; d_LCalcExpr = a_LCalcExp
+    ; d_RCalcExpr = a_RCalcExp
+    }
 
 let parseWords (words:string) : string list =
   Str.split (Str.regexp " " ) words
@@ -97,7 +130,7 @@ let parseDetector (rowStr:string) =
   for i = 0 to len - 1 do
     parseWord @@ List.nth rowStrList i
   done
-  ;
+
 let initDetector =
   readPeanoIndex := 0
   ;
@@ -110,4 +143,13 @@ let initDetector =
 let wordParser (rowStr:string) =
   rowStr |> parseDetector
   ;
+  setPreExprTokens
+    (!_LLPeano)
+    (!_LRPeano)
+    (!_RPeano)
+    (!_LCalcExpr)
+    (!_RCalcExpr)
+  ;
   initDetector
+  ;
+
