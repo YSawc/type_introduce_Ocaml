@@ -9,6 +9,7 @@ let exprTimes =
 let exprIs (l:string) (r:string) =
   ()
 
-let exprCalcurator (list:string) = function
+let exprCalcurator = function
   | Plus -> ()
   | Times -> ()
+  | Is -> ()
