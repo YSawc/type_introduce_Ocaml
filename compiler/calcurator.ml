@@ -1,4 +1,12 @@
 open WordParse
+open PeanoDefinator
+
+type interfaceNode =
+  { preExprTokens : preExprTokens_t
+  ; leadingRule : peanoDefinition
+  }
+
+let () = ()
 
 let exprPlus =
   ()
