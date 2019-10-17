@@ -26,8 +26,6 @@ let inferenceChecker = function
     else
     if !preExprTokens.d_LLPeano . [0] = 'S'
     then exprDefinator T_Succ
-(* else *)
-(*   raise (Failure "PeanoToken of left on left side is something wrong! Please fix token to peano.") *)
 
 let exprPlus =
   ()
