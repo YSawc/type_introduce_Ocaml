@@ -1,8 +1,12 @@
-type peanoDefinition =
+type exprDefinition =
   | P_Zero
   | P_Succ
+  | T_Zero
+  | T_Succ
 
-let peanoDefinator = function
+let exprDefinator = function
   | P_Zero -> ()
   | P_Succ -> ()
+  | T_Zero -> ()
+  | T_Succ -> ()
 
