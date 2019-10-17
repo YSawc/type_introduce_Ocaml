@@ -18,7 +18,6 @@ type wordType =
 type operatorType =
   | Plus
   | Times
-  | Is
 
 type operatorData =
   { name: string
@@ -28,7 +27,6 @@ type operatorData =
 let operatorDatas =
   [ { name = "plus"; operator = Plus }
   ; { name = "times"; operator = Times }
-  ; { name = "is"; operator = Is }
   ]
 
 let _LLPeano = ref ""
