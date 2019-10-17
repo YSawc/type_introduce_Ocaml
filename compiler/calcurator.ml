@@ -12,14 +12,22 @@ let exprDefinator = function
   | T_Zero -> ()
   | T_Succ -> ()
 
-let inferenceChecker =
-  if !preExprTokens.d_LLPeano . [0] = 'S'
-  then ()
-  else
-  if !preExprTokens.d_LLPeano . [0] = 'Z'
-  then ()
-  else
-    raise (Failure "PeanoToken of left on left side is something wrong! Please fix token to peano.")
+let inferenceChecker = function
+  (* FIXME: refactoring *)
+  | Plus ->
+    if !preExprTokens.d_LLPeano . [0] = 'Z'
+    then exprDefinator P_Zero
+    else
+    if !preExprTokens.d_LLPeano . [0] = 'S'
+    then exprDefinator P_Succ
+  | Times ->
+    if !preExprTokens.d_LLPeano . [0] = 'Z'
+    then exprDefinator T_Zero
+    else
+    if !preExprTokens.d_LLPeano . [0] = 'S'
+    then exprDefinator T_Succ
+(* else *)
+(*   raise (Failure "PeanoToken of left on left side is something wrong! Please fix token to peano.") *)
 
 let exprPlus =
   ()
