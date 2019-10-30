@@ -1,5 +1,6 @@
 open WordParse
 open PeanoDefinator
+open Calcurator
 
 let inferenceChecker = function
   (* FIXME: refactoring *)
