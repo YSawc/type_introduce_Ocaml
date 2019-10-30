@@ -14,7 +14,12 @@ let exprDefinator = function
       raise (Failure "Wrong peanos detected! Please put peanos proven true.")
     else
       ()
-  | T_Zero -> ()
+  | T_Zero ->
+    if !_LLPeano <> !_RPeano
+    then
+      raise (Failure "Wrong peanos detected! Please put peanos proven true.")
+    else
+      ()
   | T_Succ -> ()
 
 let inferenceChecker = function
