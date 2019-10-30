@@ -9,13 +9,16 @@ type inferenceNode =
   }
 
 let exprDefinator = function
-  | P_Succ -> ()
   | P_Zero ->
     if !_LRPeano <> !_RPeano
     then
       raise (Failure "Wrong peanos detected! Please put peanos proven true.")
     else
       ()
+  | P_Succ ->
+    _LLPeano := String.sub !_LLPeano 2 (!_LLPeano |> String.length);
+    _RPeano := String.sub !_RPeano 2 (!_RPeano |> String.length);
+    Plus |> inferenceChecker
   | T_Zero ->
     if !_LLPeano <> !_RPeano
     then
