@@ -7,8 +7,13 @@ type inferenceNode =
   }
 
 let exprDefinator = function
-  | P_Zero -> ()
   | P_Succ -> ()
+  | P_Zero ->
+    if !_LRPeano <> !_RPeano
+    then
+      raise (Failure "Wrong peanos detected! Please put peanos proven true.")
+    else
+      ()
   | T_Zero -> ()
   | T_Succ -> ()
 
