@@ -1,6 +1,8 @@
 open WordParse
 open PeanoDefinator
 
+open InferenceChecker
+
 type inferenceNode =
   { preExprTokens : preExprTokens_t
   ; leadingRule : exprDefinition
