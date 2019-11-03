@@ -23,6 +23,7 @@ let exprDefinator = function
   | P_Succ ->
     _LLPeano := String.sub !_LLPeano 2 (!_LLPeano |> String.length);
     _RPeano := String.sub !_RPeano 2 (!_RPeano |> String.length);
+    printTokensWithDef "plus" "P_Succ";
     Plus |> inferenceChecker
   | T_Zero ->
     if !_LLPeano <> !_RPeano
