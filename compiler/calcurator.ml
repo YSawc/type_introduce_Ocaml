@@ -3,6 +3,11 @@ open PeanoDefinator
 
 open InferenceChecker
 
+let definitionNode = Hashtbl.create 256
+
+let createNestHash (sbsc:string) (def:string) =
+  Hashtbl.add definitionNode sbsc def
+
 type inferenceNode =
   { preExprTokens : preExprTokens_t
   ; leadingRule : exprDefinition
