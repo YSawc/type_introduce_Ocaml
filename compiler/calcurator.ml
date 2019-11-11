@@ -8,6 +8,20 @@ let definitionNode = Hashtbl.create 256
 let createNestHash (sbsc:string) (def:string) =
   Hashtbl.add definitionNode sbsc def
 
+let stack = object
+  val mutable v = [0; 2]
+
+  method pop =
+    match v with
+    | hd :: tl ->
+      v <- tl;
+      Some hd
+    | [] -> None
+
+  method push hd =
+    v <- hd :: v
+end
+
 type inferenceNode =
   { preExprTokens : preExprTokens_t
   ; leadingRule : exprDefinition
