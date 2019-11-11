@@ -6,8 +6,8 @@ open InferenceChecker
 let operatorNode = object
   val mutable hash = Hashtbl.create 256
 
-  method createNestHash (subscript:string) (tokens:string) =
-    Hashtbl.add hash subscript tokens
+  method createNestHash (subscription:string) (tokens:string) =
+    Hashtbl.add hash subscription tokens
 end
 
 let stack = object
