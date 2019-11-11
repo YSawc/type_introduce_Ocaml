@@ -3,10 +3,12 @@ open PeanoDefinator
 
 open InferenceChecker
 
-let definitionNode = Hashtbl.create 256
+let operatorNode = object
+  val mutable hash = Hashtbl.create 256
 
-let createNestHash (sbsc:string) (def:string) =
-  Hashtbl.add definitionNode sbsc def
+  method createNestHash (subscript:string) (tokens:string) =
+    Hashtbl.add hash subscript tokens
+end
 
 let stack = object
   val mutable v = []
