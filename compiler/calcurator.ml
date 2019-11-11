@@ -9,7 +9,7 @@ let createNestHash (sbsc:string) (def:string) =
   Hashtbl.add definitionNode sbsc def
 
 let stack = object
-  val mutable v = [0; 2]
+  val mutable v = []
 
   method pop =
     match v with
