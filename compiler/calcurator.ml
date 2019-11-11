@@ -3,7 +3,7 @@ open PeanoDefinator
 
 open InferenceChecker
 
-let nodeHashOperator = object
+let definitionNodeHash = object
   val mutable hash = Hashtbl.create 256
 
   method createNestHash (subscription:string) (tokens:string) =
