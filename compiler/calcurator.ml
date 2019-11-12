@@ -29,10 +29,8 @@ type inferenceNode =
   ; leadingRule : exprDefinition
   }
 
-let printTokensWithDef (expr:string) (def:string) =
-  Printf.printf
-    "%s%s%s%c%s%s%c%s"
-    !_LLPeano expr !_LRPeano '=' !_RPeano "by" ' ' def
+let strViaTokensWithDef (expr:string) (def:string) string =
+  !_LLPeano ^ expr ^ !_LRPeano ^ "=" ^ !_RPeano ^ "by" ^ " " ^ def
 
 let exprDefinator = function
   | P_Zero ->
