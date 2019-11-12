@@ -138,6 +138,15 @@ let initDetector =
   ;
   initReadCalcExpr
 
+let callInferenceChecker = function
+  | ("plus", 'Z') -> ()
+  | ("plus", 'S') -> ()
+  | ("plus", _) -> ()
+  | ("times", 'Z') -> ()
+  | ("times", 'S') -> ()
+  | ("times", _) -> ()
+  | (_, _) -> raise (Failure "Some thing is wrong detected with parsedWord! Please check your input.")
+
 let wordParser (rowStr:string) =
   rowStr |> parseDetector
   ;
