@@ -2,20 +2,16 @@ open WordParse
 open PeanoDefinator
 open Calcurator
 
-let inferenceChecker =
-  (* FIXME: refactoring *)
-  let pReadToken = !preExprTokens.d_LLPeano . [0] in
-  function
-  | Plus ->
-    if pReadToken = 'Z'
-    then exprDefinator P_Zero
-    else
-    if pReadToken = 'S'
-    then exprDefinator P_Succ
-  | Times ->
-    if pReadToken = 'Z'
-    then exprDefinator T_Zero
-    else
-    if pReadToken = 'S'
-    then exprDefinator T_Succ
-
+let inferenceChecker = function
+  | (Plus, 'Z') ->
+    exprDefinator P_Zero
+  | (Plus, 'S') ->
+    exprDefinator P_Succ
+  | (Plus, _) ->
+    ()
+  | (Times, 'Z') ->
+    exprDefinator T_Zero
+  | (Times, 'S') ->
+    exprDefinator T_Succ
+  | (Times, _) ->
+    ()
