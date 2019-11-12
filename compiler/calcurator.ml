@@ -38,19 +38,23 @@ let exprDefinator = function
     then
       raise (Failure "Wrong peanos detected! Please put peanos proven true.")
     else
-      ()
+      definitionNodeHash#createNestHash
+        "", strViaTokensWithDef "plus" "P_Zero"
   | P_Succ ->
     _LLPeano := String.sub !_LLPeano 2 (!_LLPeano |> String.length);
     _RPeano := String.sub !_RPeano 2 (!_RPeano |> String.length);
-    printTokensWithDef "plus" "P_Succ";
-    Plus |> inferenceChecker
+    definitionNodeHash#createNestHash
+      "", strViaTokensWithDef "plus" "P_Succ"
   | T_Zero ->
     if !_LLPeano <> !_RPeano
     then
       raise (Failure "Wrong peanos detected! Please put peanos proven true.")
     else
-      ()
-  | T_Succ -> ()
+      definitionNodeHash#createNestHash
+        "", strViaTokensWithDef "times" "T_Zero"
+  | T_Succ ->
+    definitionNodeHash#createNestHash
+      "", strViaTokensWithDef "times" "T_Succ"
 
 let exprPlus =
   ()
