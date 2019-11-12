@@ -30,7 +30,7 @@ type inferenceNode =
   }
 
 let strViaTokensWithDef (expr:string) (def:string) string =
-  !_LLPeano ^ expr ^ !_LRPeano ^ "=" ^ !_RPeano ^ "by" ^ " " ^ def
+  !_LLPeano ^ " " ^ expr ^ " " ^ !_LRPeano ^ " = " ^ !_RPeano ^ " by " ^ def
 
 let exprDefinator = function
   | P_Zero ->
