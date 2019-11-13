@@ -41,8 +41,8 @@ let exprDefinator = function
       definitionNodeHash#createNestHash
         "", strViaTokensWithDef "plus" "P_Zero"
   | P_Succ ->
-    _LLPeano := String.sub !_LLPeano 2 (!_LLPeano |> String.length);
-    _RPeano := String.sub !_RPeano 2 (!_RPeano |> String.length);
+    _LLPeano := String.sub !_LLPeano 2 ((!_LLPeano |> String.length) - 1);
+    _RPeano := String.sub !_RPeano 2 ((!_RPeano |> String.length) - 1);
     definitionNodeHash#createNestHash
       "", strViaTokensWithDef "plus" "P_Succ"
   | T_Zero ->
